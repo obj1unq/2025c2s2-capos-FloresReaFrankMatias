@@ -1,0 +1,29 @@
+import capos.*
+  
+describe "Ejercicio 1.1" {
+  test "Rolando encuentra la espada el libro y el collar" {
+    rolando.encontrar(espadaDelDestino)
+    assert.that(rolando.tiene(espadaDelDestino))
+    rolando.encontrar(libroDeHechizos)
+    assert.that(rolando.tiene(libroDeHechizos))
+    rolando.encontrar(collarDivino)
+    assert.notThat(rolando.tiene(collarDivino))
+    assert.equals(#{espadaDelDestino, libroDeHechizos}, rolando.mochila())
+  }
+} 
+
+describe "Test de Ejercicio 1.2" {
+  test "Rolando encuentra la espada y libro y llega al castillo,
+        despues encuentra el collar y llega al castillo" {
+    rolando.encontrar(espadaDelDestino)
+    assert.that(rolando.tiene(espadaDelDestino))
+    rolando.encontrar(libroDeHechizos)
+    assert.that(rolando.tiene(libroDeHechizos))
+    rolando.llegarACastillo()
+
+    rolando.encontrar(collarDivino)
+    assert.that(rolando.tiene(collarDivino))
+    rolando.llegarACastillo()
+    assert.equals(#{espadaDelDestino, libroDeHechizos, collarDivino}, castillo.artefactos())
+  }
+}
