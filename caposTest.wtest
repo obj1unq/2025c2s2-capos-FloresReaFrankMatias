@@ -13,8 +13,7 @@ describe "Ejercicio 1.1" {
 } 
 
 describe "Test de Ejercicio 1.2" {
-  test "Rolando encuentra la espada y libro y llega al castillo,
-        despues encuentra el collar y llega al castillo" {
+  test "Rolando encuentra la espada y libro y llega al castillo,despues encuentra el collar y llega al castillo" {
     rolando.encontrar(espadaDelDestino)
     assert.that(rolando.tiene(espadaDelDestino))
     rolando.encontrar(libroDeHechizos)
@@ -25,5 +24,37 @@ describe "Test de Ejercicio 1.2" {
     assert.that(rolando.tiene(collarDivino))
     rolando.llegarACastillo()
     assert.equals(#{espadaDelDestino, libroDeHechizos, collarDivino}, castillo.artefactos())
+  }
+}
+
+
+describe "Test del eercicio 1.3" {
+  test "En el  castillo estan el collar y la espada y 
+        rolando la armadura, en posesiones tiene que tenes los 3 items" {
+    rolando.encontrar(collarDivino)
+    rolando.encontrar(espadaDelDestino)
+    assert.equals(#{espadaDelDestino, collarDivino}, rolando.mochila())
+    rolando.llegarACastillo()
+    rolando.encontrar(armaduraDeAceroValyrio)
+    assert.equals(#{espadaDelDestino, collarDivino,armaduraDeAceroValyrio}, rolando.posesiones())
+    assert.notThat(rolando.tiene(libroDeHechizos))
+    assert.notEquals(#{libroDeHechizos},rolando.posesiones())
+  }
+}
+
+describe "Test del eercicio 1.4" {
+  test "Rolando prmero se encuentra con 3 items y guarda 2,llega al castillo,
+         despues se encuentra con otros 2 items, en el historial debe tener 5 art" {
+    rolando.encontrar(espadaDelDestino)
+    rolando.encontrar(libroDeHechizos)
+    rolando.encontrar(collarDivino)
+    
+    assert.equals(#{espadaDelDestino, libroDeHechizos}, rolando.mochila())
+    rolando.llegarACastillo()
+    
+    rolando.encontrar(armaduraDeAceroValyrio)
+    rolando.encontrar(collarDivino)
+
+    assert.equals([espadaDelDestino,libroDeHechizos,collarDivino,  armaduraDeAceroValyrio,collarDivino], rolando.historialDeArtefactos())
   }
 }
