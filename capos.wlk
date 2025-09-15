@@ -1,10 +1,10 @@
 object rolando {
     
     var property capacidadMochila = 2  
-    const mochila = #{}
+    const mochila = []
     const historial = []
     var  property poderBase = 5 
-    var    hogar = castillo
+    var hogar = castillo
     method encontrar(artefacto) {
       historial.add(artefacto)
       if(self.puedeRecolectar(artefacto)){
@@ -26,17 +26,13 @@ object rolando {
       mochila.clear()
     }
     method posesiones() {
-      return mochila.union(castillo.artefactos())
-    }
-    
-    method name() {
-      
+      //return mochila.union(hogar.artefactos())
+      return  hogar.artefactos() + mochila
     }
 
     method historialDeArtefactos() {
       return historial
-    }
-    
+    }    
    
 
     method poderDePelea(){
@@ -49,7 +45,7 @@ object rolando {
     }
 
     method aporteDePoderDeArtefactos() {
-      return  self.posesiones().map({ artefacto => artefacto.aporteDePoderA(self) })
+      return  hogar.artefactos().map({ artefacto => artefacto.aporteDePoderA(self) })
     }
     method poderDelArtefactoMasPoderoso() {
       return self.aporteDePoderDeArtefactos().max()
@@ -108,7 +104,7 @@ object bendicion {
 object invisibilidad {
   
     method aporteDePoder(personaje) {
-      return personaje.poderDePelea()
+      return personaje.poderBase()
     }
 }
 
@@ -153,16 +149,16 @@ object castillo {
 
     method guardarArt(artefactosDe) {
       
-      artefactosDe.addAll(artDelCastillo)
+      artDelCastillo.addAll(artefactosDe)
     }
     method artefactos() {
       return artDelCastillo
     }
 }
 
-rolando.encontrar(espadaDelDestino)
-rolando.encontrar(armaduraDeAceroValyrio)
-rolando.encontrar(collarDivino)
+//rolando.encontrar(espadaDelDestino)
+//rolando.encontrar(armaduraDeAceroValyrio)
+//rolando.encontrar(collarDivino)
 
 
 
