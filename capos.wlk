@@ -4,7 +4,7 @@ object rolando {
     const mochila = #{}
     const historial = []
     var  property poderBase = 5 
-
+    var    hogar = castillo
     method encontrar(artefacto) {
       historial.add(artefacto)
       if(self.puedeRecolectar(artefacto)){
@@ -21,17 +21,24 @@ object rolando {
 	method tiene(artefacto){
         return mochila.contains(artefacto)
     }
-    method llegarACastillo() {
-      castillo.guardarArt(mochila)
+    method llegarAHogar() {
+      hogar.guardarArt(mochila)
       mochila.clear()
     }
     method posesiones() {
       return mochila.union(castillo.artefactos())
     }
+    
+    method name() {
+      
+    }
+
     method historialDeArtefactos() {
       return historial
     }
     
+   
+
     method poderDePelea(){
       return poderBase + mochila.sum({artefacto => 
                               artefacto.aporteDePoderA(self)})
@@ -39,6 +46,13 @@ object rolando {
     method lucharEnBatalla() {
       mochila.forEach({artefacto => artefacto.usar()})
       poderBase += 1
+    }
+
+    method aporteDePoderDeArtefactos() {
+      return  self.posesiones().map({ artefacto => artefacto.aporteDePoderA(self) })
+    }
+    method poderDelArtefactoMasPoderoso() {
+      return self.aporteDePoderDeArtefactos().max()
     }
 
 }
@@ -62,8 +76,52 @@ object espadaDelDestino {
 
 }
 object libroDeHechizos {
+  var cantidadDeUsos= 0
+  const librosDeHechizos =  [bendicion,  invisibilidad , invocacion]
+
+  method usar() {
+    cantidadDeUsos += 1
+    librosDeHechizos.remove(self.primerHechizo())
+  }
+
+  method primerHechizo() {
+   return  librosDeHechizos.first()
+  }
+  method aporteDePoderA(personaje) {
+    if( not librosDeHechizos.isEmpty()  ){
+      return self.primerHechizo().aporteDePoder(personaje)  
+    }
+    return 0
+  }
+  
+
+  
+
+}
+
+object bendicion {
+  
+  method aporteDePoder(personaje) {
+    return 4  
+  }
+}
+object invisibilidad {
+  
+    method aporteDePoder(personaje) {
+      return personaje.poderDePelea()
+    }
+}
+
+object invocacion {
+  
+  method aporteDePoder(personaje) {
+    return personaje.poderDelArtefactoMasPoderoso()
+  }
  
 }
+
+
+
 object collarDivino {  
 var cantidadDeUsos = 0
   method usar() {
@@ -91,17 +149,20 @@ var cantidadDeUsos = 0
 
 
 object castillo {
-    const artDelCastillo = #{}
+    const artDelCastillo = []
 
     method guardarArt(artefactosDe) {
-       artefactosDe.forEach({artefactosDe=>artDelCastillo.add(artefactosDe)})
-    
+      
+      artefactosDe.addAll(artDelCastillo)
     }
     method artefactos() {
       return artDelCastillo
     }
 }
 
+rolando.encontrar(espadaDelDestino)
+rolando.encontrar(armaduraDeAceroValyrio)
+rolando.encontrar(collarDivino)
 
 
 
