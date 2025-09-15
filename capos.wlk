@@ -51,35 +51,35 @@ object rolando {
       return self.aporteDePoderDeArtefactos().max()
     }
 
+    method puedeVencer(enemigo) {
+      return self.poderDePelea() > enemigo.poderDePelea() 
+    }
+    const enemigos =[ caterina, archibaldo, astra]
+    method moradasQuePuedeConquistar() {
+      return 
+    }
+
 }
 
 
-//Artefactos
+//-----------------------------------------      Artefactos  -----------------------------------------
 object espadaDelDestino { 
-
   var cantidadDeUsos = 0
   method usar() {
     cantidadDeUsos = cantidadDeUsos + 1
   }
-
   method aporteDePoderA(personaje) {
     return if(cantidadDeUsos == 0) personaje.poderBase()
            else personaje.poderBase() * 0.5
-    
-
-
   }
-
 }
 object libroDeHechizos {
   var cantidadDeUsos= 0
   const librosDeHechizos =  [bendicion,  invisibilidad , invocacion]
-
   method usar() {
     cantidadDeUsos += 1
     librosDeHechizos.remove(self.primerHechizo())
   }
-
   method primerHechizo() {
    return  librosDeHechizos.first()
   }
@@ -89,10 +89,6 @@ object libroDeHechizos {
     }
     return 0
   }
-  
-
-  
-
 }
 
 object bendicion {
@@ -143,6 +139,7 @@ var cantidadDeUsos = 0
 
 }
 
+//----------------            Posible Hogares    -------------------------------
 
 object castillo {
     const artDelCastillo = []
@@ -156,18 +153,63 @@ object castillo {
     }
 }
 
+
+object fortalezaDeAcero {
+  
+}
+
+object palacioDeMarmol {
+  
+}
+object torreDeMarfil {
+  
+}
+
+
+
+//----------------                -------------------------------
+
 //rolando.encontrar(espadaDelDestino)
 //rolando.encontrar(armaduraDeAceroValyrio)
 //rolando.encontrar(collarDivino)
 
+//----------------            Enemigos    -------------------------------
+
+object caterina {
+  
+  //var hogar = fortalezaDeAcero
+  method poderDePelea() {
+    return 28
+  }
+  method hogar() {
+    return fortalezaDeAcero
+  }
+}
 
 
+object archibaldo {
+  
+  //var hogar = palacioDeMarmol
+  method poderDePelea() {
+    return 16
+  }
+  method hogar() {
+    return palacioDeMarmol
+  }
+}
+
+object astra {
+  
+  
+  method poderDePelea() {
+    return 14
+  }
+  method hogar() {
+    return torreDeMarfil
+  }
 
 
-
-
-
-
+}
 
 
 
