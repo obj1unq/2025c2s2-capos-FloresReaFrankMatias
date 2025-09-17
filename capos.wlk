@@ -55,11 +55,32 @@ object rolando {
       return self.poderDePelea() > enemigo.poderDePelea() 
     }
     const enemigos =[ caterina, archibaldo, astra]
-    method moradasQuePuedeConquistar() {
-      return 
+    
+    // const enemigosVencibles = {  enemigos.filter( { enemigo => enemigo.esVencidoPor(self) } )} 
+    method  enemigosVencibles()  {
+      return  enemigos.filter( { enemigo => enemigo.esVencidoPor(self) } )
+      }
+    method moradasConquistables( ) {
+      return self.enemigosVencibles().map({ enemigo => enemigo.hogar() })
     }
 
+    method esPoderoso() {
+      return (tierraDeErethia.enemigos()).all( {enemigo => enemigo.esVencidoPor(self) } )
+    } 
+
 }
+
+//------------
+
+object tierraDeErethia {
+  
+  const enemigos = [caterina, archibaldo, astra ] 
+
+  method enemigos() {
+    return enemigos
+  }
+}
+
 
 
 //-----------------------------------------      Artefactos  -----------------------------------------
@@ -184,6 +205,9 @@ object caterina {
   method hogar() {
     return fortalezaDeAcero
   }
+  method esVencidoPor(enemigo) {
+    return self.poderDePelea() < enemigo.poderDePelea()
+  }
 }
 
 
@@ -196,6 +220,9 @@ object archibaldo {
   method hogar() {
     return palacioDeMarmol
   }
+  method esVencidoPor(enemigo) {
+    return self.poderDePelea() < enemigo.poderDePelea()
+  }
 }
 
 object astra {
@@ -207,7 +234,9 @@ object astra {
   method hogar() {
     return torreDeMarfil
   }
-
+  method esVencidoPor(enemigo) {
+    return self.poderDePelea() < enemigo.poderDePelea()
+  }
 
 }
 

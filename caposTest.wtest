@@ -109,5 +109,36 @@ describe "Ejercicio 2.2" {
   }
 }
 
+describe "test ej 2.3, 2.4 ,2.5" {
+  
+  test "Rolando puede conquistar el pacioDeMarmol y la torreDeMarfil" {
+    rolando.poderBase(5)
+    rolando.capacidadMochila(3)
+    rolando.encontrar(espadaDelDestino)
+    rolando.encontrar(armaduraDeAceroValyrio)
+    rolando.encontrar(collarDivino)
+   // assert.equals( [archibaldo,astra], enemigosVencibles)  
+    assert.equals([palacioDeMarmol, torreDeMarfil],rolando.moradasConquistables())
+  }
 
+  test "Rolando no es poderoso" {
+    rolando.poderBase(5)
+    rolando.capacidadMochila(3)
+    rolando.encontrar(espadaDelDestino)
+    rolando.encontrar(armaduraDeAceroValyrio)
+    rolando.encontrar(collarDivino)
+    assert.noThat( rolando.esPoderoso())
+
+  }
+
+  test "Rolando es poderoso" {
+    rolando.poderBase(5)
+    rolando.capacidadMochila(3)
+    rolando.encontrar(espadaDelDestino)
+    rolando.encontrar(armaduraDeAceroValyrio)
+    rolando.encontrar(collarDivino)
+    assert.that( rolando.esPoderoso())
+  }
+
+}
 
