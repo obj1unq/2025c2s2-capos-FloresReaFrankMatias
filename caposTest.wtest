@@ -8,7 +8,7 @@ describe "Ejercicio 1" {
     assert.that(rolando.tiene(libroDeHechizos))
     rolando.encontrar(collarDivino)
     assert.notThat(rolando.tiene(collarDivino))
-    assert.equals(#{espadaDelDestino, libroDeHechizos}, rolando.mochila())
+    assert.equals([espadaDelDestino, libroDeHechizos], rolando.mochila())
   }
 
   test "ej 1.2: Rolando encuentra la espada y libro y llega al castillo,despues encuentra el collar y llega al castillo" {
@@ -21,15 +21,15 @@ describe "Ejercicio 1" {
     rolando.encontrar(collarDivino)
     assert.that(rolando.tiene(collarDivino))
     rolando.llegarAHogar()
-    assert.equals(#{espadaDelDestino, libroDeHechizos, collarDivino}, castillo.artefactos())
+    assert.equals([espadaDelDestino, libroDeHechizos, collarDivino], castillo.artefactos())
   }
   test "Ejer 1.3:En el  castillo estan el collar y la espada y rolando la armadura, en posesiones tiene que tenes los 3 items" {
     rolando.encontrar(collarDivino)
     rolando.encontrar(espadaDelDestino)
-    assert.equals(#{espadaDelDestino, collarDivino}, rolando.mochila())
+    assert.equals([collarDivino,espadaDelDestino ], rolando.mochila())
     rolando.llegarAHogar()
     rolando.encontrar(armaduraDeAceroValyrio)
-    assert.equals(#{espadaDelDestino, collarDivino,armaduraDeAceroValyrio}, rolando.posesiones())
+    assert.equals([ collarDivino,espadaDelDestino,armaduraDeAceroValyrio], rolando.posesiones())
     assert.notThat(rolando.tiene(libroDeHechizos))
     assert.notEquals(#{libroDeHechizos},rolando.posesiones())
   }
@@ -39,7 +39,7 @@ describe "Ejercicio 1" {
     rolando.encontrar(libroDeHechizos)
     rolando.encontrar(collarDivino)
     
-    assert.equals(#{espadaDelDestino, libroDeHechizos}, rolando.mochila())
+    assert.equals([espadaDelDestino, libroDeHechizos], rolando.mochila())
     rolando.llegarAHogar()
     
     rolando.encontrar(armaduraDeAceroValyrio)
@@ -51,7 +51,6 @@ describe "Ejercicio 1" {
 
 
 describe "Test del punto  2" {
-  
   test "Ejer 2.1: pB =5, capMochila = 3, con espada con aporte 5,armadura con aporte 6 y tiene 3 batallas " {
     rolando.capacidadMochila(3)
     rolando.encontrar(espadaDelDestino)
@@ -86,7 +85,6 @@ describe "Test del punto  2" {
 }
 
 describe "Ejercicio 2.2" {
-  
   method initialize(){
     rolando.poderBase(5)
     rolando.capacidadMochila(3)
@@ -109,28 +107,23 @@ describe "Ejercicio 2.2" {
   }
 }
 
-describe "test ej 2.3, 2.4 ,2.5" {
-  
+describe "Ejer 2.3 al 2.5" {
   test "Rolando puede conquistar el pacioDeMarmol y la torreDeMarfil" {
     rolando.poderBase(5)
     rolando.capacidadMochila(3)
     rolando.encontrar(espadaDelDestino)
     rolando.encontrar(armaduraDeAceroValyrio)
     rolando.encontrar(collarDivino)
-   // assert.equals( [archibaldo,astra], enemigosVencibles)  
     assert.equals([palacioDeMarmol, torreDeMarfil],rolando.moradasConquistables())
   }
-
   test "Rolando no es poderoso" {
     rolando.poderBase(5)
     rolando.capacidadMochila(3)
     rolando.encontrar(espadaDelDestino)
     rolando.encontrar(armaduraDeAceroValyrio)
     rolando.encontrar(collarDivino)
-    assert.noThat( rolando.esPoderoso())
-
+    assert.notThat(rolando.esPoderoso())
   }
-
   test "Rolando es poderoso" {
     rolando.poderBase(5)
     rolando.capacidadMochila(3)
@@ -138,7 +131,25 @@ describe "test ej 2.3, 2.4 ,2.5" {
     rolando.encontrar(armaduraDeAceroValyrio)
     rolando.encontrar(collarDivino)
     assert.that( rolando.esPoderoso())
+    
   }
-
+  test "2.5: Tiene artefacto fatal para enfrentar a Astra o Caterina" {
+    rolando.capacidadMochila(3)
+    rolando.poderBase(15)
+    rolando.encontrar(espadaDelDestino)
+    rolando.encontrar(armaduraDeAceroValyrio)
+    rolando.encontrar(collarDivino)
+  
+    assert.that(rolando.tieneArtefactoFatalParaEnfrentarA(astra))
+    assert.equals(espadaDelDestino, rolando.artefactoFatalParaEnfrentarA(astra))
+  
+  
+    assert.notThat(rolando.tieneArtefactoFatalParaEnfrentarA(caterina))
+    assert.equals(null, rolando.artefactoFatalParaEnfrentarA(caterina))
+    
+  }
 }
+
+
+
 

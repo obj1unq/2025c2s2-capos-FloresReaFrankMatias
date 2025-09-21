@@ -68,6 +68,18 @@ object rolando {
       return (tierraDeErethia.enemigos()).all( {enemigo => enemigo.esVencidoPor(self) } )
     } 
 
+   method tieneArtefactoFatalParaEnfrentarA(enemigo) {
+    return self.mochila().any{ artefacto => 
+        artefacto.aporteDePoderA(self) > enemigo.poderDePelea()} 
+   }
+
+  method artefactoFatalParaEnfrentarA(enemigo) {
+   return self.mochila().findOrDefault( { artefacto => 
+        artefacto.aporteDePoderA(self) > enemigo.poderDePelea()},null )
+  }
+
+
+
 }
 
 //------------
